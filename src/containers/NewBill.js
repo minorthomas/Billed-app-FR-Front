@@ -18,14 +18,19 @@ export default class NewBill {
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    const input = this.document.querySelector(`input[data-testid="file"]`)
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
     formData.append('email', email)
+    const authorizedFormats = ["jpeg", "jpg", "png"];
+    const format = fileName.split(".").pop()
+    console.log(format);
 
-    this.store
+    if(authorizedFormats.includes(format)) {
+      this.store
       .bills()
       .create({
         data: formData,
@@ -39,6 +44,10 @@ export default class NewBill {
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
+    } else {
+      console.error("Format invalide (only jpeg, jpg, png)");
+      input.value = "";
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
