@@ -27,7 +27,6 @@ export default class NewBill {
     formData.append('email', email)
     const authorizedFormats = ["jpeg", "jpg", "png"];
     const format = fileName.split(".").pop()
-    console.log(format);
 
     if(authorizedFormats.includes(format)) {
       this.store
@@ -49,6 +48,7 @@ export default class NewBill {
       input.value = "";
     }
   }
+  
   handleSubmit = e => {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
