@@ -8,6 +8,7 @@ class Api {
   constructor({baseUrl}) {
     this.baseUrl = baseUrl;
   }
+  
   async get({url, headers}) {
     return jsonOrThrowIfError(await fetch(`${this.baseUrl}${url}`, {headers, method: 'GET'}))
   }
